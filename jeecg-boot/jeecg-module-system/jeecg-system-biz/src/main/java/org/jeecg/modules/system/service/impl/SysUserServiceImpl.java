@@ -55,11 +55,9 @@ import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.jeecgframework.poi.excel.view.JeecgEntityExcelView;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -189,6 +187,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		if (userIds != null && userIds.size() > 0) {
 			Map<String, String> useDepNames = this.getDepNamesByUserIds(userIds);
 			pageList.getRecords().forEach(item -> {
+				
 				item.setOrgCodeTxt(useDepNames.get(item.getId()));
 				//查询用户的租户ids
 				List<Integer> list = userTenantMapper.getTenantIdsByUserId(item.getId());
@@ -198,7 +197,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 					item.setRelTenantIds("");
 				}
 				Integer posTenantId = null;
-				if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+				if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 					posTenantId = oConvertUtils.getInt(TenantContext.getTenant(), 0);;		
 				}
 				//查询用户职位关系表(获取租户下面的)
@@ -210,7 +209,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 				
 				//update-begin---author:wangshuai---date:2023-10-08---for:【QQYUN-6668】钉钉部门和用户同步，我怎么知道哪些用户是双向绑定成功的---
 				//是否根据租户隔离(敲敲云用户列表专用，用于展示是否同步钉钉)
-				if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+				if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 					//查询账号表是否已同步钉钉
 					LambdaQueryWrapper<SysThirdAccount> query = new LambdaQueryWrapper<>();
 					query.eq(SysThirdAccount::getSysUserId,item.getId());
@@ -419,7 +418,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		Set<String> permissionSet = new HashSet<>();
 		List<SysPermission> permissionList = sysPermissionMapper.queryByUser(userId);
 		//================= begin 开启租户的时候 如果没有test角色，默认加入test角色================
-		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 			if (permissionList == null) {
 				permissionList = new ArrayList<>();
 			}
@@ -1000,7 +999,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }else{
 			//是否开启系统管理模块的多租户数据隔离【SAAS多租户模式】
-			if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+			if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 				//update-begin---author:wangshuai ---date:20230220  for：判断当前用户是否在当前租户里面，如果不存在在新增------------
 				String tenantId = TenantContext.getTenant();
 				if(oConvertUtils.isNotEmpty(tenantId)){
@@ -1505,7 +1504,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		}
 		// 判断是否开启saas模式，根据租户id过滤
 		Integer tenantId = null;
-		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 			// 开启了但是没有租户ID，默认-1，使其查询不到任何数据
 			tenantId = oConvertUtils.getInt(TenantContext.getTenant(), -1);
 		}

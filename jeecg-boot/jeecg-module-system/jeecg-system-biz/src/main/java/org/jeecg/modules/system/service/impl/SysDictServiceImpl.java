@@ -162,7 +162,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 		List<Integer> tenantIds = null;
 		//------------------------------------------------------------------------------------------------
 		//是否开启系统管理模块的多租户数据隔离【SAAS多租户模式】
-		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 			tenantIds = new ArrayList<>();
 			tenantIds.add(0);
 			if (TenantContext.getTenant() != null) {

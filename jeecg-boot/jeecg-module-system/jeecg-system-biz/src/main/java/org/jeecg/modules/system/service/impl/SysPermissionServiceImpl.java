@@ -237,7 +237,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 	public List<SysPermission> queryByUser(String userId) {
 		List<SysPermission> permissionList = this.sysPermissionMapper.queryByUser(userId);
 		//================= begin 开启租户的时候 如果没有test角色，默认加入test角色================
-		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+		if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
 			if (permissionList == null) {
 				permissionList = new ArrayList<>();
 			}

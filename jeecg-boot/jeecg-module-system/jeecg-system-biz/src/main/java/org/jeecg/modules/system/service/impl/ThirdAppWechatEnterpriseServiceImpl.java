@@ -1252,7 +1252,7 @@ public class ThirdAppWechatEnterpriseServiceImpl implements IThirdAppService {
      * @param tenantId
      */
     private void createUserTenant(String userId, Boolean isUpdate, Integer tenantId) {
-        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
             //判断当前用户是否已在该租户下面
             Integer count = sysUserTenantMapper.userTenantIzExist(userId, tenantId);
             //count 为0 新增租户用户,否则不用新增

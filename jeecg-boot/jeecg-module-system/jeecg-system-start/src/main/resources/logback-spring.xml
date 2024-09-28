@@ -32,7 +32,7 @@
 	<appender name="HTML" class="ch.qos.logback.core.FileAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<!--设置日志级别,过滤掉info日志,只输入error日志-->
-			<level>ERROR</level>
+			<level>debug</level>
 		</filter>
 		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
 			<layout class="ch.qos.logback.classic.html.HTMLLayout">

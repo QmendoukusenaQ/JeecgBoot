@@ -23,7 +23,6 @@ import org.jeecg.config.JeecgBaseConfig;
 import org.jeecg.modules.base.service.BaseCommonService;
 import org.jeecg.modules.system.entity.SysDepart;
 import org.jeecg.modules.system.entity.SysRoleIndex;
-import org.jeecg.modules.system.entity.SysTenant;
 import org.jeecg.modules.system.entity.SysUser;
 import org.jeecg.modules.system.model.SysLoginModel;
 import org.jeecg.modules.system.service.*;
@@ -31,14 +30,12 @@ import org.jeecg.modules.system.service.impl.SysBaseApiImpl;
 import org.jeecg.modules.system.util.RandImageUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author scott
@@ -80,8 +77,9 @@ public class LoginController {
 			return result.error500("该用户登录失败次数过多，请于10分钟后再次登录！");
 		}
 
+		// todo
 		// step.1 验证码check
-        String captcha = sysLoginModel.getCaptcha();
+ /*       String captcha = sysLoginModel.getCaptcha();
         if(captcha==null){
             result.error500("验证码无效");
             return result;
@@ -98,7 +96,7 @@ public class LoginController {
 			// 改成特殊的code 便于前端判断
 			result.setCode(HttpStatus.PRECONDITION_FAILED.value());
 			return result;
-		}
+		}*/
 		
 		// step.2 校验用户是否存在且有效
 		LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
@@ -121,8 +119,9 @@ public class LoginController {
 		// step.4  登录成功获取用户信息
 		userInfo(sysUser, result, request);
 
+		// todo
 		// step.5  登录成功删除验证码
-		redisUtil.del(realKey);
+//		redisUtil.del(realKey);
 		redisUtil.del(CommonConstant.LOGIN_FAIL + username);
 
 		// step.6  记录用户登录日志

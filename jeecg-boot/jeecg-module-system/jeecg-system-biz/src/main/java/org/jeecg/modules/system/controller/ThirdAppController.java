@@ -63,7 +63,7 @@ public class ThirdAppController {
         Map<String, Boolean> enabledMap = new HashMap(5);
         int tenantId;
         //是否开启系统管理模块的多租户数据隔离【SAAS多租户模式】
-        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
             tenantId = oConvertUtils.getInt(TenantContext.getTenant(), -1);
         } else {
             tenantId = oConvertUtils.getInt(TenantContext.getTenant(), 0);
@@ -432,7 +432,7 @@ public class ThirdAppController {
     @GetMapping("/getThirdConfigByTenantId")
     public Result<SysThirdAppConfig> getThirdAppByTenantId(@RequestParam(name = "tenantId", required = false) Integer tenantId,
                                                            @RequestParam(name = "thirdType") String thirdType) {
-        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
             if (tenantId == null) {
                 return Result.error("开启多租户模式，租户ID参数不允许为空！");
             }

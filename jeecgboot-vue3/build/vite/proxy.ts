@@ -1,7 +1,7 @@
 /**
  * Used to parse the .env.development proxy configuration
  */
-import type { ProxyOptions } from 'vite';
+import type {ProxyOptions} from 'vite';
 
 type ProxyItem = [string, string];
 
@@ -25,9 +25,14 @@ export function createProxy(list: ProxyList = []) {
       target: target,
       changeOrigin: true,
       ws: true,
-      rewrite: (path) => path.replace(new RegExp(`^${prefix}`), ''),
+      rewrite: (path) => {
+        console.log('init,path=>', path, 'init,prefix=>', prefix)
+        path = path.replace(new RegExp(`^${prefix}`), '')
+        console.log(path, prefix)
+        return path
+      },
       // https is require secure=false
-      ...(isHttps ? { secure: false } : {}),
+      ...(isHttps ? {secure: false} : {}),
     };
   }
   return ret;

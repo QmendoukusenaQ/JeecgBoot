@@ -181,7 +181,7 @@ public class SysTenantController {
     public Result<?> delete(@RequestParam(name="id",required=true) String id) {
         //------------------------------------------------------------------
         //如果是saas隔离的情况下，判断当前租户id是否是当前租户下的
-        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+        if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
             //获取当前用户
             LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
             SysTenant sysTenant = sysTenantService.getById(id);
@@ -217,7 +217,7 @@ public class SysTenantController {
             for (String id : ls) {
                 //------------------------------------------------------------------
                 //如果是saas隔离的情况下，判断当前租户id是否是当前租户下的
-                if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) {
+                if (MybatisPlusSaasConfig.OPEN_SYSTEM_TENANT_CONTROL) { 
                     //获取当前用户
                     LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
                     SysTenant sysTenant = sysTenantService.getById(id);
